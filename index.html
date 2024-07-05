@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <script>
+
+        function Menu(){
+            const escolha = prompt("Menu Principal \n 1 - Cadastrar Produto \n 2 - Buscar Produto \n 3 - Atualizar Produto \n 4 - Visualizar Todos os Produto \n 5 - Deletar Produto \n 0 - Sair")
+            return escolha
+        }
+
+        function CadastrarProduto(){
+            const nome = prompt("Nome: ");
+            const preco = prompt("Preço:");
+            const descricao = prompt("Descrição: ");
+            const categoria = prompt("Categoria:");
+            const telVendedor = prompt("Telefone do Vendedor:");
+            Produtos.push({
+                Nome: nome,
+                Preco: preco,
+                Descricao: descricao,
+                Categoria: categoria,
+                Telefone_do_Vendedor: telVendedor 
+            })
+            confirm("Produto Cadastrado com Sucesso");
+        }
+
+        function BuscarProduto(){
+            const busca = prompt("Digite o nome do produto que deseja buscar:");
+            const pesquisado = Produtos.filter(item => item.Nome == busca);
+            var ret = "";
+            pesquisado.forEach(buscar => {
+            ret = ret + "Nome: " + buscar.Nome + "\n" +  "Preco: " + buscar.Preco + "\n" + "Descrição: " + buscar.Descricao + "\n" + "Categoria: " + buscar.Categoria + "\n" + "Telefone do Vendedor: " + buscar.Telefone_do_Vendedor + "\n\n";
+            });
+            return ret;
+        }
+
+        function listarTodosProdutos(){
+            var retorno = "";
+            Produtos.forEach(listar => {
+            retorno = retorno + "Nome: " + listar.Nome + "\n" + "Preco: " + listar.Preco + "\n" + "Descrição: " + listar.Descricao + "\n" + "Categoria: " + listar.Categoria + "\n" + "Telefone do Vendedor: "  + listar.Telefone_do_Vendedor + "\n\n";
+            });
+            return retorno;
+        }
+
+        function atualizarProdutos(){
+            const atualizaProd = prompt("Digite o nome do produto que deseja atualizar:");
+            Produtos.forEach(atualiza => {
+                if(atualiza.Nome == atualizaProd){
+                    const resp1 = prompt("Nome: " + atualiza.Nome + "\n" + "Preco: " + atualiza.Preco + "\n" + "Descrição: " + atualiza.Descricao + "\n" + "Categoria: " + atualiza.Categoria + "\n" + "Telefone do Vendedor: " + atualiza.Telefone_do_Vendedor + "\n\n" + "Deseja atualizar este produto? \nDigite 1 para Sim ou 2 para Não");
+                    if(resp1 == 1){
+                        let nome = prompt("Informe o novo nome: ");
+                        let preco = prompt("Informe o novo Preço: ");
+                        let descricao = prompt("Informe a nova descrição: ");
+                        let categoria = prompt("Informe a nova categoria: ");
+                        let telVendedor = prompt("Informe o novo telefone do vendedor: ");
+                        let resp2 = prompt("Tem certeza que deseja alterar este produto?(Sim ou Nao)");
+                        if(resp2 == "Sim" || resp2 == "sim"){
+                            atualiza.Nome = nome;
+                            atualiza.Preco = preco;
+                            atualiza.Descricao = descricao;
+                            atualiza.Categoria = categoria;
+                            atualiza.Telefone_do_Vendedor = telVendedor;
+                            confirm("Produto Atualizado Com Sucesso");
+                        }else if(resp == "Nao" || resp == "nao"){
+                            confirm("Produto não atualizado")
+                        }
+                    }
+                }
+            })
+        }
+
+        function removerProduto() {
+            var nome = prompt("Insira o nome do produto que deseja remover:");
+            Produtos.forEach((produto, indice) => {
+                if(produto.Nome == nome){
+                    const resp1 = prompt("Nome: " + produto.Nome + "\n" + "Preco: " + produto.Preco + "\n" + "Descrição: " + produto.Descricao + "\n" + "Categoria: " + produto.Categoria + "\n" + "Telefone do Vendedor: " + produto.Telefone_do_Vendedor + "\n\n" + "Deseja remover este produto? \nDigite 1 para Sim ou 2 para Não");
+                    if(resp1 == 1){
+                        Produtos.splice(indice, 1);
+                        alert("Produto removido com sucesso");
+                    }
+                }
+            })
+        }
+
+        const Produtos=[];
+
+        do{
+            var escolha = Menu();
+            if(escolha == 1){
+                CadastrarProduto();
+            }else if(escolha == 2){
+                var produtoBuscado = BuscarProduto();
+                if(produtoBuscado != ""){
+                    alert("Produto(s) Encontrado(s):\n\n" + produtoBuscado);
+                }else{
+                    alert("Produto(s) Encontrado(s):\n\nNenhum Produto Encontrado");
+                }
+            }else if(escolha == 3){
+                atualizarProdutos();
+            }else if(escolha == 4){
+                var produtoBuscado = listarTodosProdutos();
+                if(produtoBuscado != ""){
+                    alert("Todos os Produtos Cadastrado:\n" + listarTodosProdutos());
+                }else{
+                    alert("Produto(s) Encontrado(s):\n\nNenhum produto cadastrado");
+                }
+            }else if(escolha == 5){
+                removerProduto()
+            }
+        }while(escolha != 0);
+    </script>
+    
+</body>
+</html>
